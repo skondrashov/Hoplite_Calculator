@@ -1,18 +1,23 @@
-var showUnavailable = true;
+var showUnavailable = true;						// toggles hiding vs greying out unavailable prayers
 
+// a heart icon for copying into the health bar when we need it
 var health = document.createElement('img');
 health.src = "res/48px-health.png";
 
-var acquired = {};
+// stats!
+var HP = 3
+,	altars = 15
+,	energy = 100
+,	range = 2
+;
 
-var HP = 3;
-var altars = 15;
-
-// generate a DOM element for every ability to use for display
+// generate a DOM element for every prayer to use for display
 (function(){
-	for (var name in abilities)
+	for (var name in prayers)
 	{
-		var ability = abilities[name];
+		var prayer = prayers[name];
+		prayer.enabled = true;
+
 		var element = document.createElement('div')
 		,	icon = document.createElement('img')
 		,	text = document.createElement('div')
@@ -20,29 +25,29 @@ var altars = 15;
 		,	description = document.createElement('div')
 		;
 
-		$(element).addClass('ability_container');
-		$(icon).addClass('ability_icon');
-		$(text).addClass('ability_text');
-		$(title).addClass('ability_name');
-		$(description).addClass('ability_description');
+		$(element).addClass('prayer_container');
+		$(icon).addClass('prayer_icon');
+		$(text).addClass('prayer_text');
+		$(title).addClass('prayer_name');
+		$(description).addClass('prayer_description');
 
 		$(element).append(icon);
 		$(element).append(text);
 		$(text).append(title);
 		$(text).append(description);
 
-		icon.src = "res/48px-" + ability.icon + ".png";
+		icon.src = "res/48px-" + prayer.icon + ".png";
 		title.innerHTML = name;
-		description.innerHTML = ability.text;
+		description.innerHTML = prayer.text;
 		
-		if (ability.cost)
+		if (prayer.cost)
 		{
 			var cost = document.createElement('div');
-			$( cost ).addClass('ability_cost');
+			$( cost ).addClass('prayer_cost');
 			cost.innerHTML = 'Sacrifice required ';
 			var heart = document.createElement('span');
 			$( heart ).addClass('heart_text');
-			for (var i = 0; i < ability.cost; ++i)
+			for (var i = 0; i < prayer.cost; ++i)
 			{
 				heart.innerHTML += "\u2665";
 			}
@@ -51,7 +56,7 @@ var altars = 15;
 		}
 
 		if (name != "Fortitude") {(function(){
-			var closure = ability;
+			var closure = prayer;
 			$(element).click(function(){
 				if (closure.acquired)
 					refund(closure);
@@ -60,18 +65,33 @@ var altars = 15;
 			});
 		})();}
 		
-		ability.html = element;
+		prayer.html = element;
+	}
+
+	// marks all prayers with their types (if they have one) based on the prayerTypes object
+	for (var type in prayerTypes) {
+		var typeList = prayerTypes[type];
+		for (var i = 0; i < typeList.length; ++i) {
+			prayers[typeList[i]].type = type;
+		}
 	}
 })();
 
-$( document ).ready(function() {
+$(document).ready(function() {
+	// refunds a Fortitude prayer if possible
 	$("#refund_health").click(function(){
-		if (HP > 1 && altars < 15) {
+		// you can't refund the HP you start with (since you never prayed for it)
+		if (
+			HP > 1 && altars < 13
+			|| HP > 2 && altars < 14
+			|| HP > 3 && altars < 15
+		) {
 			HP--;
 			altars++;
 			update();
 		}
 	});
+	// performs a Fortitude prayer if possible
 	$("#acquire_health").click(function(){
 		if (altars > 0) {
 			HP++;
@@ -79,44 +99,63 @@ $( document ).ready(function() {
 			update();
 		}
 	});
-	for (var i in abilities)
-		$( "#pool" ).append(abilities[i].html);
+	for (var i in prayers)
+		$( "#pool" ).append(prayers[i].html);
 	update();
 });
 
-function refund(ability) {
-	ability.acquired = false;
-	$(ability.html).show();
-	HP += ability.cost;
+function refund(prayer) {
+	// re-enable display of the prayer in the pool
+	$(prayer.html).show();
+
+	// refund HP/altar costs
+	HP += prayer.cost;
 	altars++;
+	
+	prayer.acquired = false;
+	
+	// if the prayer belongs to a type, unflag the members of that type
+	if (prayer.type) {
+		for (var i = 0; i < prayerTypes[prayer.type].length; ++i) {
+			prayers[prayerTypes[prayer.type][i]].typeConflict = false;
+		}
+	}
+
 	update();
 }
 
-// performs actions tied to acquiring a new ability
-function acquire(ability) {
-	if (ability.cost < HP && altars > 0) {
+// performs actions tied to acquiring a new prayer
+function acquire(prayer) {
+	if (prayer.enabled) {
 
-		var htmlCopy = $(ability.html).clone();	// make a copy of our ability info box
-		$(htmlCopy).click(function(){			// add a click handler to refund the ability onclick
+		var htmlCopy = $(prayer.html).clone();	// make a copy of our prayer info box
+		$(htmlCopy).click(function(){			// add a click handler to refund the prayer onclick
 			$(htmlCopy).remove();
-			refund(ability);
+			refund(prayer);
 		});
-		$( "#acquired" ).append(htmlCopy);		// add the new box to the acquired ability list
+		$( "#acquired" ).append(htmlCopy);		// add the new box to the acquired prayer list
 
-		$(ability.html).hide();					// hide the purchased ability
-
-		ability.acquired = true;
+		$(prayer.html).hide();					// hide the purchased prayer
 
 		// apply HP/altar costs
-		HP -= ability.cost;
+		HP -= prayer.cost;
 		altars--;
+		
+		prayer.acquired = true;
+
+		// if the prayer belongs to a type, flag all prayers of that type for disabling
+		if (prayer.type) {
+			for (var i = 0; i < prayerTypes[prayer.type].length; ++i) {
+				prayers[prayerTypes[prayer.type][i]].typeConflict = true;
+			}
+		}
 
 		update();
 	}
 }
 
 // checks and updates all page visuals
-function update(ability) {
+function update() {
 	var diff = (HP - $("#health>img").length);		// the difference between the actual and displayed HP values
 
 	// these for loops also act as "if" statements
@@ -131,16 +170,29 @@ function update(ability) {
 
 	$("#altars").html("Altars Left: " + altars);	// updates the altar count
 
-	// greys out unavailable abilities in the pool and colors available abilities
-	// if an ability is greyed out for any single reason, all other checks are skipped with "continue"
-	for (var i in abilities) {
-		var ability = abilities[i];
-		
-		// greys based on health cost
-		if (ability.cost > HP - 1 && !ability.acquired) {
-			$( ability.html ).addClass('grayscale');
-			continue;
-		}
-		$( ability.html ).removeClass('grayscale');	// if the ability was never greyed out, color it
+	// greys out unavailable prayers in the pool and colors available prayers
+	for (var i in prayers) {
+		var prayer = prayers[i];
+
+		if (prayer.cost > HP - 1					// health costs
+			|| prayer.typeConflict					// type conflicts
+			|| altars == 0) {						// altar availability
+			disable(prayer);
+		}	else
+			enable(prayer);
 	}
+}
+
+function disable(prayer) {
+	prayer.enabled = false;
+	$(prayer.html).addClass('grayscale');
+	if (!showUnavailable)
+		$(prayer.html).hide();
+}
+
+function enable(prayer) {
+	prayer.enabled = true;
+	$(prayer.html).removeClass('grayscale');
+	if (!prayer.acquired)
+		$(prayer.html).show();
 }

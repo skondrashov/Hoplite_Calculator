@@ -84,7 +84,7 @@ body {
 	box-sizing: border-box;         /* Opera/IE 8+ */
 }
 
-.ability_container {
+.prayer_container {
 	background-color: #5E4730;
 	padding:10px;
 	display: flex;
@@ -101,27 +101,27 @@ body {
 	cursor: pointer;
 }
 
-.ability_icon {
+.prayer_icon {
 	margin-top:auto;
 	margin-bottom:auto;
 	min-width: 48px;
 	height: 48px;
 }
 
-.ability_text {
+.prayer_text {
 	margin-left: 15px;
 	font-size: 16px;
 }
 
-.ability_name {
+.prayer_name {
 	font-size: 20px;
 	white-space:nowrap;
 }
 
-.ability_description {
+.prayer_description {
 }
 
-.ability_cost {
+.prayer_cost {
 }
 
 .heart_text {
