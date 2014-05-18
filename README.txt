@@ -1,0 +1,1 @@
+This is a build calculator for Hoplite by Magma Fortress - an incredibly fun mobile game.

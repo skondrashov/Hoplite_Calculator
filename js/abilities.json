@@ -1,0 +1,223 @@
+// need to add protection, patience, wizard beam, follow, recall, and some upgrades
+
+var abilities =
+// lunges
+{	"Deep Lunge":
+	{	icon:"spear"
+	,	cost:0
+	,	text:"Lunge penetrates through target"
+	,	type:"lunge"
+	}
+,	"Slashing Lunge":
+	{	icon:"spear"
+	,	cost:1
+	,	text:"Lunge slashes across two tiles when leaping diagonally"
+	,	type:"lunge"
+	}
+,	"Sword Lunge":
+	{	icon:"spear"
+	,	cost:1
+	,	text:"Allows lunging without holding your spear"
+	,	type:"lunge"
+	}
+// combos
+,	"Surge":
+	{	icon:"action"
+	,	cost:1
+	,	text:"Killing in three consecutive actions restores all energy, resets cooldowns and returns your spear."
+	,	type:"combo"
+	}
+,	"Regeneration":
+	{	icon:"action"
+	,	cost:1
+	,	text:"Once per depth, killing in three consecutive actions regenerates 1 health."
+	,	type:"combo"
+	}
+,	"Agility":
+	{	icon:"action"
+	,	cost:1
+	,	text:"Killing in three consecutive actions grants an additional free action."
+	,	type:"combo"
+	}
+// spear stuff
+,	"Wizard Beam":
+	{	icon:"spear"
+	,	cost:0
+	,	text:"Throw is replaced by a wizard beam"
+	,	type:"spear"
+	}
+,	"Recall":
+	{	icon:"spear"
+	,	cost:1
+	,	text:"Returns your spear"
+	,	type:"spear"
+	}
+,	"Follow":
+	{	icon:"spear"
+	,	cost:1
+	,	text:"Teleport to your spear"
+	,	type:"spear"
+	}
+// leap stuff
+,	"Winged Sandals":
+	{	icon:"leap"
+	,	cost:2
+	,	text:"Increase leap distance by 2"
+	,	type:"leap"
+	}
+,	"Staggering Leap":
+	{	icon:"leap"
+	,	cost:2
+	,	text:"Stuns adjacent enemies on landing"
+	,	type:"leap"
+	}
+,	"Swift Leap":
+	{	icon:"leap"
+	,	cost:2
+	,	text:"Gain an additional action after leaping. This action cannot be another leap"
+	,	type:"leap"
+	}
+,	"Leap Strike":
+	{	icon:"leap"
+	,	cost:2
+	,	text:"Allows leaping onto demons, crushing them and knocking back adjacent demons"
+	,	type:"leap"
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+// action
+,	"Patience":
+	{	icon:"action"
+	,	cost:0
+	,	text:"Allows skipping turns"
+	}
+// spear
+,	"Greater Throw":
+	{	icon:"spear"
+	,	cost:0
+	,	text:"Increases throw distance"
+	}
+,	"Greater Throw II":
+	{	icon:"spear"
+	,	cost:1
+	,	text:"Increases throw distance"
+	,	prereq:"Greater Throw"
+	}
+,	"Plant Spear":
+	{	icon:"spear"
+	,	cost:1
+	,	text:"Throwing your spear into the ground stuns adjacent demons"
+	}
+// leap
+,	"Greater Energy":
+	{	icon:"leap"
+	,	cost:0
+	,	text:"Increases maximum energy"
+	}
+,	"Greater Energy II":
+	{	icon:"leap"
+	,	cost:1
+	,	text:"Increases maximum energy"
+	,	prereq:"Greater Energy"
+	}
+,	"Superior Energy":
+	{	icon:"leap"
+	,	cost:2
+	,	text:"Further increases maximum energy"
+	,	prereq:"Greater Energy II"
+	}
+,	"Superior Energy II":
+	{	icon:"leap"
+	,	cost:3
+	,	text:"Further increases maximum energy"
+	,	prereq:"Superior Energy"
+	}
+,	"Superior Energy III":
+	{	icon:"leap"
+	,	cost:4
+	,	text:"Further increases maximum energy"
+	,	prereq:"Superior Energy"
+	}
+,	"Bloodlust":
+	{	icon:"leap"
+	,	cost:1
+	,	text:"Killing restores 5 energy."
+	}
+,	"Greater Bloodlust":
+	{	icon:"leap"
+	,	cost:2
+	,	text:"Killing restores an additional 5 energy."
+	,	prereq:"Bloodlust"
+	}
+,	"Greater Bloodlust II":
+	{	icon:"leap"
+	,	cost:2
+	,	text:"Killing restores an additional 5 energy."
+	,	prereq:"Greater Bloodlust"
+	}
+,	"Greater Bloodlust III":
+	{	icon:"leap"
+	,	cost:2
+	,	text:"Killing restores an additional 5 energy."
+	,	prereq:"Greater Bloodlust II"
+	}
+// shield
+,	"Quick Bash":
+	{	icon:"shield"
+	,	cost:0
+	,	text:"Reduces cooldown"
+	}
+,	"Rapid Bash":
+	{	icon:"shield"
+	,	cost:1
+	,	text:"Further reduces cooldown"
+	}
+,	"Sweeping Bash":
+	{	icon:"shield"
+	,	cost:0
+	,	text:"Affects targets in an arc"
+	}
+,	"Greater Sweeping Bash":
+	{	icon:"shield"
+	,	cost:1
+	,	text:"Affects targets in a cone"
+	,	prereq:"Sweeping Bash"
+	,	type:"sweep"
+	}
+,	"Spinning Bash":
+	{	icon:"shield"
+	,	cost:1
+	,	text:"Affects all adjacent targets"
+	,	prereq:"Sweeping Bash"
+	,	type:"sweep"
+	}
+,	"Mighty Bash":
+	{	icon:"shield"
+	,	cost:0
+	,	text:"Increases knock back distance"
+	}
+,	"Herculean Bash":
+	{	icon:"shield"
+	,	cost:0
+	,	text:"Further increases knock back distance"
+	}
+,	"Reaction":
+	{	icon:"shield"
+	,	cost:1
+	,	text:"Bashing propels you backward"
+	}
+,	"Shielding Bash":
+	{	icon:"shield"
+	,	cost:2
+	,	text:"Blocks all damage for one turn"
+	}
+};

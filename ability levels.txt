@@ -1,0 +1,15 @@
+Greater Throw, Greater Energy, Quick Bash, Sweeping Bash, Reaction
+Greater Throw, Greater Energy, Quick Bash, Bloodlust, Mighty Bash, Reaction
+Bloodlust, Reaction, Mighty Bash, Greater Throw, Greater Energy, Sweeping Bash
+LUNGE LEVEL - Deep Lunge, Slashing Lunge, Sword Lunge
+Plant Spear, Bloodlust, Mighty Bash, Sweeping Bash, Shielding Bash
+COMBO LEVEL - Surge, Regeneration, Agility 
+Patience, Greater Energy, Sweeping Bash, Greater Throw, Quick Bash, Reaction, Shielding Bash
+SPEAR LEVEL - Follow, Recall, Plant Spear, Wizard Beam
+Patience, Reaction, Plant Spear, Bloodlust, Shielding Bash
+LEAP LEVEL - Winged Sandals, Staggering Leap, Swift Leap, Leap Strike
+Protection, Plant Spear, Bloodlust, Mighty Bash, Greater Energy, Quick Bash, Shielding Bash
+SHIELD LEVEL - Sweeping Bash, Shielding Bash, Quick Bash, Reaction, Mighty Bash
+Plant Spear, Bloodlust, Mighty Bash, Sweeping Bash, Reaction
+Plant Spear, Greater Energy, Reaction, Quick Bash, Sweeping Bash
+Protection, Greater Energy, Reaction, Quick Bash, Plant Spear, Bloodlust, Mighty Bash

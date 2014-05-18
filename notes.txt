@@ -1,0 +1,5 @@
+1) patience and protection are really really rare
+
+2) there may be upgrades past greater bloodlust III or superior energy III, but it's unlikely that you will ever see or need them
+
+3) add a checkbox to either hide or grayscale abilities that are unavailable ("Show unavailable abilities")

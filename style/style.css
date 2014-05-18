@@ -1,0 +1,143 @@
+@font-face {
+	font-family: "Minecraftia";
+	src: url("Minecraftia.ttf");
+}
+
+body {
+	margin: 0;
+	font-family: "Minecraftia";
+	color: white;
+	background-color: #191919;
+	overflow: hidden;
+}
+
+#pool {
+    position: absolute;
+	top: 0px;
+	left: 0px;
+	height: 100%;
+    overflow-y: scroll;
+	border: 10px solid #191919;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
+#stats {
+	margin-left: auto;
+	margin-right: auto;
+	display:table;
+}
+
+#health_container {
+	display:flex;
+	background-color: #5E4730;
+	padding:10px;
+	margin-top:10px;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.button {
+	margin-top:12px;
+	width: 24px;
+	height: 24px;
+	text-align: center;
+	border: 1px solid;
+	border-color: #B6ACA1 #3F2F20 #3F2F20 #B6ACA1;
+	cursor: pointer;
+}
+
+.button:active {
+	border-color: #3F2F20 #B6ACA1 #B6ACA1 #3F2F20;
+	
+}
+
+#health {
+	width: 424px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+#health>img {
+	margin-left: 5px;
+}
+
+#altars {
+	text-align: center;
+	font-size: 32px;
+}
+
+#acquired {
+    position: absolute;
+	top: 0px;
+	right: 0px;
+	height: 100%;
+    overflow-y: scroll;
+	border: 10px solid #191919;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
+.ability_container {
+	background-color: #5E4730;
+	padding:10px;
+	display: flex;
+	overflow-x: hidden;
+	min-height: 48px;
+	margin-bottom: 5px;
+	width: 500px;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	cursor: pointer;
+}
+
+.ability_icon {
+	margin-top:auto;
+	margin-bottom:auto;
+	min-width: 48px;
+	height: 48px;
+}
+
+.ability_text {
+	margin-left: 15px;
+	font-size: 16px;
+}
+
+.ability_name {
+	font-size: 20px;
+	white-space:nowrap;
+}
+
+.ability_description {
+}
+
+.ability_cost {
+}
+
+.heart_text {
+	color: #E45B5B;
+}
+
+.grayscale {
+	background-color: #474747;
+}
+
+.grayscale img {
+    filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale"); /* Firefox 10+, Firefox on Android */
+    filter: gray; /* IE6-9 */
+    -webkit-filter: grayscale(100%); /* Chrome 19+, Safari 6+, Safari 6+ iOS */
+}
+
+.grayscale  .heart_text {
+	color: #9F9F9F;
+}
