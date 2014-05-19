@@ -156,6 +156,16 @@ var prayers =
 	,	cost:1
 	,	text:"Further reduces cooldown"
 	}
+,	"Mighty Bash":
+	{	icon:"shield"
+	,	cost:0
+	,	text:"Increases knock back distance"
+	}
+,	"Herculean Bash":
+	{	icon:"shield"
+	,	cost:0
+	,	text:"Further increases knock back distance"
+	}
 ,	"Sweeping Bash":
 	{	icon:"shield"
 	,	cost:0
@@ -170,16 +180,6 @@ var prayers =
 	{	icon:"shield"
 	,	cost:1
 	,	text:"Affects all adjacent targets"
-	}
-,	"Mighty Bash":
-	{	icon:"shield"
-	,	cost:0
-	,	text:"Increases knock back distance"
-	}
-,	"Herculean Bash":
-	{	icon:"shield"
-	,	cost:0
-	,	text:"Further increases knock back distance"
 	}
 ,	"Reaction":
 	{	icon:"shield"

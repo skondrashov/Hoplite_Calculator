@@ -141,37 +141,45 @@ $(document).ready(function() {
 });
 
 function refund(prayer) {
-	$(prayer.htmlCopy).remove();				// remove the copy from the acquired prayer list
+	if (prayer.enabled) {
+		prayer.acquired = false;
 
-	// refund HP/altar costs
-	HP += prayer.cost;
-	altars++;
-	
-	prayer.acquired = false;
-	
-	// if the prayer belongs to a type, unflag the members of that type
-	if (prayer.types) {
-		for (var j = 0; j < prayer.types.length; ++j) {			
-			for (var i = 0; i < prayerTypes[prayer.types[j]].length; ++i) {
-				prayers[prayerTypes[prayer.types[j]][i]].typeConflict = false;
+		$(prayer.htmlCopy).remove();				// remove the copy from the acquired prayer list
+
+		// refund HP/altar costs
+		HP += prayer.cost;
+		altars++;
+		
+		// if the prayer belongs to a type, unflag the members of that type
+		if (prayer.types) {
+			for (var j = 0; j < prayer.types.length; ++j) {			
+				for (var i = 0; i < prayerTypes[prayer.types[j]].length; ++i) {
+					prayers[prayerTypes[prayer.types[j]][i]].typeConflict = false;
+				}
 			}
 		}
-	}
 
-	// if the prayer belongs to a series, update the series' prerequisite flags
-	if (prayer.series) {
-		for (var i = 0; i < prayer.series.length; ++i) {
-			if (prayer.tier[i]+1 < prayerSeries[prayer.series[i]].length)
-				prayers[prayerSeries[prayer.series[i]][prayer.tier[i]+1]].needsPrereq = true;
+		// if the prayer belongs to a series, update the series' prerequisite flags
+		if (prayer.series) {
+			for (var i = 0; i < prayer.series.length; ++i) {
+				if (prayer.tier[i]+1 < prayerSeries[prayer.series[i]].length)
+					prayers[prayerSeries[prayer.series[i]][prayer.tier[i]+1]].needsPrereq = true;
+
+				// allows prerequisite to be refunded
+				if (prayer.tier[i]) {
+					prayers[prayerSeries[prayer.series[i]][prayer.tier[i]-1]].noRefund = false;
+				}
+			}
 		}
-	}
 
-	update();
+		update();
+	}
 }
 
 // performs actions tied to acquiring a new prayer
 function acquire(prayer) {
 	if (prayer.enabled) {
+		prayer.acquired = true;
 
 		prayer.htmlCopy = $(prayer.html).clone(true);	// make a copy of our prayer info box
 		$("#acquired").append(prayer.htmlCopy);			// add the new box to the acquired prayer list
@@ -179,12 +187,10 @@ function acquire(prayer) {
 		// apply HP/altar costs
 		HP -= prayer.cost;
 		altars--;
-		
-		prayer.acquired = true;
 
 		// if the prayer belongs to a type, flag all prayers of that type for disabling
 		if (prayer.types) {
-			for (var j = 0; j < prayer.types.length; ++j) {			
+			for (var j = 0; j < prayer.types.length; ++j) {
 				for (var i = 0; i < prayerTypes[prayer.types[j]].length; ++i) {
 					if (prayers[prayerTypes[prayer.types[j]][i]] != prayer)
 						prayers[prayerTypes[prayer.types[j]][i]].typeConflict = true;
@@ -197,6 +203,11 @@ function acquire(prayer) {
 			for (var i = 0; i < prayer.series.length; ++i) {
 				if (prayer.tier[i]+1 < prayerSeries[prayer.series[i]].length)
 					prayers[prayerSeries[prayer.series[i]][prayer.tier[i]+1]].needsPrereq = false;
+
+				// stop prerequisite from being refunded
+				if (prayer.tier[i]) {
+					prayers[prayerSeries[prayer.series[i]][prayer.tier[i]-1]].noRefund = true;
+				}
 			}
 		}
 
@@ -212,7 +223,7 @@ function update() {
 	// only the relevant one will ever runo
 	// or neither if the number of icons == HP
 	for (var i = 0; i < diff; ++i) {				// adds health icons to match current health
-		$( "#health" ).append($(health).clone());
+		$("#health").append($(health).clone());
 	}
 	for (var i = 0; i > diff; --i) {				// removes health icons to match current health
 		$("#health>img:last-child").remove();
@@ -224,6 +235,11 @@ function update() {
 	for (var i in prayers) {
 		var prayer = prayers[i];
 
+		if (prayer.noRefund) {						// is this a prerequisite for an acquired ability?
+			prayer.enabled = false;
+		} else
+			prayer.enabled = true;
+
 		if (prayer.acquired) {
 			$(prayer.html).addClass('acquired');
 			continue;
@@ -232,8 +248,8 @@ function update() {
 			$(prayer.html).removeClass('acquired');
 
 		if (	prayer.cost > HP - 1				// health costs
-			||	prayer.typeConflict					// type conflicts
 			||	altars == 0							// altar availability
+			||	prayer.typeConflict					// type conflicts
 			||	prayer.needsPrereq					// prerequisite fulfillment
 		)
 			disable(prayer);
