@@ -27,6 +27,7 @@ body {
 	margin-left: auto;
 	margin-right: auto;
 	display:table;
+	width: 500px;
 }
 
 #health_container {
@@ -70,6 +71,15 @@ body {
 #altars {
 	text-align: center;
 	font-size: 32px;
+}
+
+#warnings {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.warning {
+	color: #E45B5B;
 }
 
 #acquired {

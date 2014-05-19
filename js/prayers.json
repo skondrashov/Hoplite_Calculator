@@ -123,7 +123,7 @@ var prayers =
 	{	icon:"leap"
 	,	cost:4
 	,	text:"Further increases maximum energy"
-	,	prereq:"Superior Energy"
+	,	prereq:"Superior Energy II"
 	}
 ,	"Bloodlust":
 	{	icon:"leap"
@@ -185,6 +185,7 @@ var prayers =
 	{	icon:"shield"
 	,	cost:0
 	,	text:"Further increases knock back distance"
+	,	prereq:"Mighty Bash"
 	}
 ,	"Reaction":
 	{	icon:"shield"

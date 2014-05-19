@@ -75,6 +75,16 @@ var HP = 3
 			prayers[typeList[i]].type = type;
 		}
 	}
+
+	// fills the warning box with possible build warnings, but hides them, to be turned on later if they're needed
+	// replaces the warning JSON with DOM objects for simple manipulation
+	for (var i in warnings) {
+		var element = document.createElement('div');
+		$(element).addClass('warning');
+		$(element).html("Warning: " + warnings[i]);
+		$(element).hide();
+		warnings[i] = element;
+	}
 })();
 
 $(document).ready(function() {
@@ -100,7 +110,9 @@ $(document).ready(function() {
 		}
 	});
 	for (var i in prayers)
-		$( "#pool" ).append(prayers[i].html);
+		$("#pool").append(prayers[i].html);
+	for (var i in warnings)
+		$("#warnings").append(warnings[i]);
 	update();
 });
 
@@ -174,13 +186,26 @@ function update() {
 	for (var i in prayers) {
 		var prayer = prayers[i];
 
-		if (prayer.cost > HP - 1					// health costs
-			|| prayer.typeConflict					// type conflicts
-			|| altars == 0) {						// altar availability
+		if (	prayer.cost > HP - 1								// health costs
+			||	prayer.typeConflict									// type conflicts
+			||	altars == 0											// altar availability
+			||	prayer.prereq && !prayers[prayer.prereq].acquired	// prerequisite fulfillment
+		)
 			disable(prayer);
-		}	else
+		else
 			enable(prayer);
 	}
+
+	// displays warnings about the build to the user
+	if (HP > 8 && altars == 0)
+		$(warnings["MAX_HP"]).show();
+	else
+		$(warnings["MAX_HP"]).hide();
+
+	if (prayers["Patience"].acquired)
+		$(warnings["RARE"]).show();
+	else
+		$(warnings["RARE"]).hide();
 }
 
 function disable(prayer) {
