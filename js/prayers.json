@@ -88,13 +88,11 @@ var prayers =
 	{	icon:"spear"
 	,	cost:1
 	,	text:"Increases throw distance"
-	,	prereq:"Greater Throw"
 	}
 ,	"Superior Throw":
 	{	icon:"spear"
 	,	cost:2
 	,	text:"Further increases throw distance"
-	,	prereq:"Greater Throw II"
 	}
 ,	"Plant Spear":
 	{	icon:"spear"
@@ -111,25 +109,21 @@ var prayers =
 	{	icon:"leap"
 	,	cost:1
 	,	text:"Increases maximum energy"
-	,	prereq:"Greater Energy"
 	}
 ,	"Superior Energy":
 	{	icon:"leap"
 	,	cost:2
 	,	text:"Further increases maximum energy"
-	,	prereq:"Greater Energy II"
 	}
 ,	"Superior Energy II":
 	{	icon:"leap"
 	,	cost:3
 	,	text:"Further increases maximum energy"
-	,	prereq:"Superior Energy"
 	}
 ,	"Superior Energy III":
 	{	icon:"leap"
 	,	cost:4
 	,	text:"Further increases maximum energy"
-	,	prereq:"Superior Energy II"
 	}
 ,	"Bloodlust":
 	{	icon:"leap"
@@ -140,19 +134,16 @@ var prayers =
 	{	icon:"leap"
 	,	cost:2
 	,	text:"Killing restores an additional 5 energy."
-	,	prereq:"Bloodlust"
 	}
 ,	"Greater Bloodlust II":
 	{	icon:"leap"
 	,	cost:2
 	,	text:"Killing restores an additional 5 energy."
-	,	prereq:"Greater Bloodlust"
 	}
 ,	"Greater Bloodlust III":
 	{	icon:"leap"
 	,	cost:2
 	,	text:"Killing restores an additional 5 energy."
-	,	prereq:"Greater Bloodlust II"
 	}
 // shield
 ,	"Quick Bash":
@@ -174,13 +165,11 @@ var prayers =
 	{	icon:"shield"
 	,	cost:1
 	,	text:"Affects targets in a cone"
-	,	prereq:"Sweeping Bash"
 	}
 ,	"Spinning Bash":
 	{	icon:"shield"
 	,	cost:1
 	,	text:"Affects all adjacent targets"
-	,	prereq:"Sweeping Bash"
 	}
 ,	"Mighty Bash":
 	{	icon:"shield"
@@ -191,7 +180,6 @@ var prayers =
 	{	icon:"shield"
 	,	cost:0
 	,	text:"Further increases knock back distance"
-	,	prereq:"Mighty Bash"
 	}
 ,	"Reaction":
 	{	icon:"shield"
@@ -228,5 +216,35 @@ var prayerTypes =
 	]
 ,	[	"Spinning Bash"
 	,	"Reaction"
+	]
+];
+
+var prayerSeries =
+[	[	"Greater Throw"
+	,	"Greater Throw II"
+	,	"Superior Throw"
+	]
+,	[	"Greater Energy"
+	,	"Greater Energy II"
+	,	"Superior Energy"
+	,	"Superior Energy II"
+	,	"Superior Energy III"
+	]
+,	[	"Bloodlust"
+	,	"Greater Bloodlust"
+	,	"Greater Bloodlust II"
+	,	"Greater Bloodlust III"
+	]
+,	[	"Quick Bash"
+	,	"Rapid Bash"
+	]
+,	[	"Mighty Bash"
+	,	"Herculean Bash"
+	]
+,	[	"Sweeping Bash"
+	,	"Greater Sweeping Bash"
+	]
+,	[	"Sweeping Bash"
+	,	"Spinning Bash"
 	]
 ];

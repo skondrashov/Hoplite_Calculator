@@ -83,6 +83,22 @@ var HP = 3
 		}
 	}
 
+	// marks all prayers with their series (if they belong to one) based on the prayerSeries object
+	// also marks their position in the series, referred to by "tier"
+	for (var i = 0; i < prayerSeries.length; ++i) {
+		var series = prayerSeries[i];
+		for (var j = 0; j < series.length; ++j) {
+			if (prayers[series[j]].series === undefined)
+				prayers[series[j]].series = [];
+			if (prayers[series[j]].tier === undefined)
+				prayers[series[j]].tier = [];
+			prayers[series[j]].series.push(i);
+			prayers[series[j]].tier.push(j);
+			if (j)
+				prayers[series[j]].needsPrereq = true;
+		}
+	}
+
 	// fills the warning box with possible build warnings, but hides them, to be turned on later if they're needed
 	// replaces the warning JSON with DOM objects for simple manipulation
 	for (var i in warnings) {
@@ -116,16 +132,16 @@ $(document).ready(function() {
 			update();
 		}
 	});
-	for (var i in prayers)
+	for (var i in prayers) {
 		$("#pool").append(prayers[i].html);
+	}
 	for (var i in warnings)
 		$("#warnings").append(warnings[i]);
 	update();
 });
 
 function refund(prayer) {
-	// re-enable display of the prayer in the pool
-	$(prayer.html).show();
+	$(prayer.htmlCopy).remove();				// remove the copy from the acquired prayer list
 
 	// refund HP/altar costs
 	HP += prayer.cost;
@@ -142,6 +158,14 @@ function refund(prayer) {
 		}
 	}
 
+	// if the prayer belongs to a series, update the series' prerequisite flags
+	if (prayer.series) {
+		for (var i = 0; i < prayer.series.length; ++i) {
+			if (prayer.tier[i]+1 < prayerSeries[prayer.series[i]].length)
+				prayers[prayerSeries[prayer.series[i]][prayer.tier[i]+1]].needsPrereq = true;
+		}
+	}
+
 	update();
 }
 
@@ -149,14 +173,8 @@ function refund(prayer) {
 function acquire(prayer) {
 	if (prayer.enabled) {
 
-		var htmlCopy = $(prayer.html).clone();	// make a copy of our prayer info box
-		$(htmlCopy).click(function(){			// add a click handler to refund the prayer onclick
-			$(htmlCopy).remove();
-			refund(prayer);
-		});
-		$( "#acquired" ).append(htmlCopy);		// add the new box to the acquired prayer list
-
-		$(prayer.html).hide();					// hide the purchased prayer
+		prayer.htmlCopy = $(prayer.html).clone(true);	// make a copy of our prayer info box
+		$("#acquired").append(prayer.htmlCopy);			// add the new box to the acquired prayer list
 
 		// apply HP/altar costs
 		HP -= prayer.cost;
@@ -168,8 +186,17 @@ function acquire(prayer) {
 		if (prayer.types) {
 			for (var j = 0; j < prayer.types.length; ++j) {			
 				for (var i = 0; i < prayerTypes[prayer.types[j]].length; ++i) {
-					prayers[prayerTypes[prayer.types[j]][i]].typeConflict = true;
+					if (prayers[prayerTypes[prayer.types[j]][i]] != prayer)
+						prayers[prayerTypes[prayer.types[j]][i]].typeConflict = true;
 				}
+			}
+		}
+
+		// if the prayer belongs to a series, update the series' prerequisite flags
+		if (prayer.series) {
+			for (var i = 0; i < prayer.series.length; ++i) {
+				if (prayer.tier[i]+1 < prayerSeries[prayer.series[i]].length)
+					prayers[prayerSeries[prayer.series[i]][prayer.tier[i]+1]].needsPrereq = false;
 			}
 		}
 
@@ -197,10 +224,17 @@ function update() {
 	for (var i in prayers) {
 		var prayer = prayers[i];
 
-		if (	prayer.cost > HP - 1								// health costs
-			||	prayer.typeConflict									// type conflicts
-			||	altars == 0											// altar availability
-			||	prayer.prereq && !prayers[prayer.prereq].acquired	// prerequisite fulfillment
+		if (prayer.acquired) {
+			$(prayer.html).addClass('acquired');
+			continue;
+		}
+		else
+			$(prayer.html).removeClass('acquired');
+
+		if (	prayer.cost > HP - 1				// health costs
+			||	prayer.typeConflict					// type conflicts
+			||	altars == 0							// altar availability
+			||	prayer.needsPrereq					// prerequisite fulfillment
 		)
 			disable(prayer);
 		else

@@ -138,6 +138,10 @@ body {
 	color: #E45B5B;
 }
 
+.acquired {
+	background-color: #305F30;
+}
+
 .grayscale {
 	background-color: #474747;
 }
