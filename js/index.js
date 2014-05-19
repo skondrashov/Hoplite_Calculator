@@ -1,5 +1,10 @@
 var showUnavailable = true;						// toggles hiding vs greying out unavailable prayers
 
+function setHideUnavailable (cb) {
+	showUnavailable = cb.checked;
+	update();
+}
+
 // a heart icon for copying into the health bar when we need it
 var health = document.createElement('img');
 health.src = "res/48px-health.png";
@@ -69,10 +74,12 @@ var HP = 3
 	}
 
 	// marks all prayers with their types (if they have one) based on the prayerTypes object
-	for (var type in prayerTypes) {
-		var typeList = prayerTypes[type];
-		for (var i = 0; i < typeList.length; ++i) {
-			prayers[typeList[i]].type = type;
+	for (var i = 0; i < prayerTypes.length; ++i) {
+		var typeList = prayerTypes[i];
+		for (var j = 0; j < typeList.length; ++j) {
+			if (prayers[typeList[j]].types === undefined)
+				prayers[typeList[j]].types = [];
+			prayers[typeList[j]].types.push(i);
 		}
 	}
 
@@ -127,9 +134,11 @@ function refund(prayer) {
 	prayer.acquired = false;
 	
 	// if the prayer belongs to a type, unflag the members of that type
-	if (prayer.type) {
-		for (var i = 0; i < prayerTypes[prayer.type].length; ++i) {
-			prayers[prayerTypes[prayer.type][i]].typeConflict = false;
+	if (prayer.types) {
+		for (var j = 0; j < prayer.types.length; ++j) {			
+			for (var i = 0; i < prayerTypes[prayer.types[j]].length; ++i) {
+				prayers[prayerTypes[prayer.types[j]][i]].typeConflict = false;
+			}
 		}
 	}
 
@@ -156,9 +165,11 @@ function acquire(prayer) {
 		prayer.acquired = true;
 
 		// if the prayer belongs to a type, flag all prayers of that type for disabling
-		if (prayer.type) {
-			for (var i = 0; i < prayerTypes[prayer.type].length; ++i) {
-				prayers[prayerTypes[prayer.type][i]].typeConflict = true;
+		if (prayer.types) {
+			for (var j = 0; j < prayer.types.length; ++j) {			
+				for (var i = 0; i < prayerTypes[prayer.types[j]].length; ++i) {
+					prayers[prayerTypes[prayer.types[j]][i]].typeConflict = true;
+				}
 			}
 		}
 
@@ -197,7 +208,7 @@ function update() {
 	}
 
 	// displays warnings about the build to the user
-	if (HP > 8 && altars == 0)
+	if (HP > 8)
 		$(warnings["MAX_HP"]).show();
 	else
 		$(warnings["MAX_HP"]).hide();

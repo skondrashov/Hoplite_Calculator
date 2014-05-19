@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<title>
-			Hoplite Build Generator
+			Hoplite Build Calculator
 		</title>
 		<script src="js/jquery-2.1.1.min.js" type="text/javascript"></script>
 		<script src="js/warnings.json" type="text/javascript"></script>
@@ -12,7 +12,10 @@
 		<link href="style/style.css" rel="stylesheet">
 	</head>
 	<body>
-		<div id="pool"></div>
+		<div id="left">
+			<input type="checkbox" onchange="setHideUnavailable(this);">
+			<div id="pool"></div>
+		</div>
 		<div id="stats">
 			<div id="health_container">
 				<div id="refund_health" class="button">-</div>
@@ -22,6 +25,8 @@
 			<div id="altars"></div>
 			<div id="warnings"></div>
 		</div>
-		<div id="acquired"></div>
+		<div id="right">
+			<div id="acquired"></div>
+		</div>
 	</body>
 </html>

@@ -90,6 +90,12 @@ var prayers =
 	,	text:"Increases throw distance"
 	,	prereq:"Greater Throw"
 	}
+,	"Superior Throw":
+	{	icon:"spear"
+	,	cost:2
+	,	text:"Further increases throw distance"
+	,	prereq:"Greater Throw II"
+	}
 ,	"Plant Spear":
 	{	icon:"spear"
 	,	cost:1
@@ -200,29 +206,27 @@ var prayers =
 };
 
 var prayerTypes =
-{	lunge:
-	[	"Deep Lunge"
+[	[	"Deep Lunge"
 	,	"Slashing Lunge"
 	,	"Sword Lunge"
 	]
-,	combo:
-	[	"Surge"
+,	[	"Surge"
 	,	"Regeneration"
 	,	"Agility"
 	]
-,	spear:
-	[	"Wizard Beam"
+,	[	"Wizard Beam"
 	,	"Recall"
 	,	"Follow"
 	]
-,	leap:
-	[	"Winged Sandals"
+,	[	"Winged Sandals"
 	,	"Staggering Leap"
 	,	"Swift Leap"
 	,	"Leap Strike"
 	]
-,	sweeping:
-	[	"Greater Sweeping Bash"
+,	[	"Greater Sweeping Bash"
 	,	"Spinning Bash"
 	]
-};
+,	[	"Spinning Bash"
+	,	"Reaction"
+	]
+];
