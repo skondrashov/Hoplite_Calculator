@@ -1,9 +1,4 @@
-var showUnavailable = true;						// toggles hiding vs greying out unavailable prayers
-
-function setHideUnavailable (cb) {
-	showUnavailable = cb.checked;
-	update();
-}
+var hideUnavailable = false;						// toggles hiding vs greying out unavailable prayers
 
 // a heart icon for copying into the health bar when we need it
 var health = document.createElement('img');
@@ -16,10 +11,29 @@ var HP = 3
 ,	range = 2
 ;
 
+function setHideUnavailable (cb) {
+	hideUnavailable = cb.checked;
+	for (var i in prayers) {
+		var prayer = prayers[i];
+		if (!prayer.enabled) {
+			if (hideUnavailable)
+				$(prayer.html).hide();
+			else 
+				$(prayer.html).show();
+		}
+	}
+}
+
+function setHideDescriptions(cb) {
+	if (cb.checked)
+		$(".prayer_description").hide();
+	else
+		$(".prayer_description").show();
+}
+
 // generate a DOM element for every prayer to use for display
 (function(){
-	for (var name in prayers)
-	{
+	for (var name in prayers) {
 		var prayer = prayers[name];
 		prayer.enabled = true;
 
@@ -44,9 +58,8 @@ var HP = 3
 		icon.src = "res/48px-" + prayer.icon + ".png";
 		title.innerHTML = name;
 		description.innerHTML = prayer.text;
-		
-		if (prayer.cost)
-		{
+
+		if (prayer.cost) {
 			var cost = document.createElement('div');
 			$( cost ).addClass('prayer_cost');
 			cost.innerHTML = 'Sacrifice required ';
@@ -263,22 +276,27 @@ function update() {
 	else
 		$(warnings["MAX_HP"]).hide();
 
-	if (prayers["Patience"].acquired)
+	if (prayers["Patience"].acquired || prayers["Protection"].acquired)
 		$(warnings["RARE"]).show();
 	else
 		$(warnings["RARE"]).hide();
+
+	if (prayers["Superior Energy III"].acquired || prayers["Greater Bloodlust V"].acquired)
+		$(warnings["LEAPAGE"]).show();
+	else
+		$(warnings["LEAPAGE"]).hide();
+		
 }
 
 function disable(prayer) {
 	prayer.enabled = false;
 	$(prayer.html).addClass('grayscale');
-	if (!showUnavailable)
+	if (hideUnavailable)
 		$(prayer.html).hide();
 }
 
 function enable(prayer) {
 	prayer.enabled = true;
 	$(prayer.html).removeClass('grayscale');
-	if (!prayer.acquired)
-		$(prayer.html).show();
+	$(prayer.html).show();
 }

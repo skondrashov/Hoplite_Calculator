@@ -1,0 +1,55 @@
+body {
+	font-size: 8px;
+}
+#left {
+	padding: 0px;
+}
+#right {
+	padding: 0px;
+}
+#stats {
+	padding-top:10px;
+}
+#footer {
+	padding: 0px;
+}
+
+#health_container {
+	width: 144px;
+	padding: 0px;
+}
+.button {
+	width: 24px;
+	height: 24px;
+	font-size: 16px;
+}
+img {
+	width: 24px;
+	min-width: 24px;
+	height: 24px;
+}
+#health {
+	width: 106px;
+	margin-left: 0px;
+	margin-right: 0px;
+}
+#health>img {
+	margin-left: 0px;
+}
+#altars {
+	font-size: 12px;
+}
+#warnings {
+	padding: 1px 2px;
+}
+.prayer_container {
+	min-height: 24px;
+	margin-bottom: 1px;
+	padding:1px;
+}
+.prayer_name {
+	font-size: 10px;
+}
+.prayer_text {
+	margin-left: 0px;
+}

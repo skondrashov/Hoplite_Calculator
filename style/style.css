@@ -11,30 +11,51 @@ body {
 	overflow: hidden;
 }
 
-#pool {
+#left {
     position: absolute;
 	top: 0px;
 	left: 0px;
 	height: 100%;
-    overflow-y: scroll;
-	border: 10px solid #191919;
 	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
 	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
 	box-sizing: border-box;         /* Opera/IE 8+ */
+	width: 30%;
+}
+
+#right {
+    position: absolute;
+	top: 0px;
+	right: 0px;
+	height: 100%;
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+	width: 30%;
 }
 
 #stats {
 	margin-left: auto;
 	margin-right: auto;
 	display:table;
-	width: 500px;
+	width: 40%;
+	height: 100%;
+}
+
+#footer {
+	position:absolute;
+	bottom: 0px;
+	width: 40%;
+}
+
+#options {
+	text-align: center;
 }
 
 #health_container {
+	margin-left: auto;
+	margin-right: auto;
 	display:flex;
 	background-color: #5E4730;
-	padding:10px;
-	margin-top:10px;
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
 	-khtml-user-select: none;
@@ -44,9 +65,6 @@ body {
 }
 
 .button {
-	margin-top:12px;
-	width: 24px;
-	height: 24px;
 	text-align: center;
 	border: 1px solid;
 	border-color: #B6ACA1 #3F2F20 #3F2F20 #B6ACA1;
@@ -55,22 +73,11 @@ body {
 
 .button:active {
 	border-color: #3F2F20 #B6ACA1 #B6ACA1 #3F2F20;
-	
 }
 
-#health {
-	width: 424px;
-	margin-left: 10px;
-	margin-right: 10px;
-}
-
-#health>img {
-	margin-left: 5px;
-}
 
 #altars {
 	text-align: center;
-	font-size: 32px;
 }
 
 #warnings {
@@ -82,26 +89,20 @@ body {
 	color: #E45B5B;
 }
 
-#acquired {
-    position: absolute;
-	top: 0px;
-	right: 0px;
-	height: 100%;
+#pool {
     overflow-y: scroll;
-	border: 10px solid #191919;
-	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
-	box-sizing: border-box;         /* Opera/IE 8+ */
+	height: 100%;
+}
+
+#acquired {
+    overflow-y: scroll;
+	height: 100%;
 }
 
 .prayer_container {
 	background-color: #5E4730;
-	padding:10px;
 	display: flex;
 	overflow-x: hidden;
-	min-height: 48px;
-	margin-bottom: 5px;
-	width: 500px;
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
 	-khtml-user-select: none;
@@ -114,17 +115,9 @@ body {
 .prayer_icon {
 	margin-top:auto;
 	margin-bottom:auto;
-	min-width: 48px;
-	height: 48px;
-}
-
-.prayer_text {
-	margin-left: 15px;
-	font-size: 16px;
 }
 
 .prayer_name {
-	font-size: 20px;
 	white-space:nowrap;
 }
 

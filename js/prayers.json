@@ -1,5 +1,3 @@
-// need to add protection, and some upgrades
-
 var prayers =
 // lunges
 {	"Deep Lunge":
@@ -71,13 +69,6 @@ var prayers =
 	,	text:"Allows leaping onto demons, crushing them and knocking back adjacent demons"
 	}
 	
-	
-// action
-,	"Patience":
-	{	icon:"action"
-	,	cost:0
-	,	text:"Allows skipping turns"
-	}
 // spear
 ,	"Greater Throw":
 	{	icon:"spear"
@@ -145,6 +136,16 @@ var prayers =
 	,	cost:2
 	,	text:"Killing restores an additional 5 energy."
 	}
+,	"Greater Bloodlust IV":
+	{	icon:"leap"
+	,	cost:2
+	,	text:"Killing restores an additional 5 energy."
+	}
+,	"Greater Bloodlust V":
+	{	icon:"leap"
+	,	cost:2
+	,	text:"Killing restores an additional 5 energy."
+	}
 // shield
 ,	"Quick Bash":
 	{	icon:"shield"
@@ -191,6 +192,17 @@ var prayers =
 	,	cost:2
 	,	text:"Blocks all damage for one turn"
 	}
+// action
+,	"Patience":
+	{	icon:"action"
+	,	cost:0
+	,	text:"Allows skipping turns"
+	}
+,	"Protection":
+	{	icon:"action"
+	,	cost:1
+	,	text:"Become temporarily invulnerable after taking damage"
+	}
 };
 
 var prayerTypes =
@@ -234,6 +246,8 @@ var prayerSeries =
 	,	"Greater Bloodlust"
 	,	"Greater Bloodlust II"
 	,	"Greater Bloodlust III"
+	,	"Greater Bloodlust IV"
+	,	"Greater Bloodlust V"
 	]
 ,	[	"Quick Bash"
 	,	"Rapid Bash"
