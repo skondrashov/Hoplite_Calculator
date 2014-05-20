@@ -272,19 +272,19 @@ function update() {
 
 	// displays warnings about the build to the user
 	if (HP > 8)
-		$(warnings["MAX_HP"]).show();
+		$(warnings.MAX_HP).show();
 	else
-		$(warnings["MAX_HP"]).hide();
+		$(warnings.MAX_HP).hide();
 
 	if (prayers["Patience"].acquired || prayers["Protection"].acquired)
-		$(warnings["RARE"]).show();
+		$(warnings.RARE).show();
 	else
-		$(warnings["RARE"]).hide();
+		$(warnings.RARE).hide();
 
 	if (prayers["Superior Energy III"].acquired || prayers["Greater Bloodlust V"].acquired)
-		$(warnings["LEAPAGE"]).show();
+		$(warnings.LEAPAGE).show();
 	else
-		$(warnings["LEAPAGE"]).hide();
+		$(warnings.LEAPAGE).hide();
 		
 }
 

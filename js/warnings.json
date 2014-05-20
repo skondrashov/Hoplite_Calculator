@@ -1,5 +1,5 @@
 var warnings =
 {	MAX_HP:	"You are limited to 8 max health in Hoplite. Make sure your final build has 8 HP or less."
 ,	RARE:	'The prayers "Patience" and "Protection" show up very rarely. It may take many tries to get this build.'
-,	LEAPAGE: "It\'s very unlikely (though possible) that you will actually see this many of the same upgrade, and very likely that it's an awful build."
+,	LEAPAGE: "It\'s very unlikely (though possible) that you will actually see this many of the same upgrade, but very likely that it's an awful build."
 };
